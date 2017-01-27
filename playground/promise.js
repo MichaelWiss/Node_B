@@ -13,8 +13,13 @@ var asyncAdd = (a, b) => {
 
 asyncAdd(5, 7).then((res) => {
    console.log('Results: ', res);
+   return asyncAdd(res, 33);
 }, (errorMessage) => {
 	console.log(errorMessage);
+}).then((res) => {
+    console.log('Should be 45', res);
+}, (errMessage) => {
+   console.log(errorMessage);
 });
 
 // var somePromise = new Promise(( resolve, reject) => {
