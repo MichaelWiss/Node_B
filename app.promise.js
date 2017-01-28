@@ -24,9 +24,14 @@ axios.get(geocodeUrl).then((response) => {
    }
 
    var lat = response.data.results[0].geometry.location.lat;
-   var long = response.data.results[0].geometry.locatio.long;
+   var lng = response.data.results[0].geometry.location.lng;
    var weatherUrl = `https://api.darksky.net/forecast/51e75aca7a008ec7c34bb9530ec53ae8/${lat},${lng}`;
-   console.log(response.data);
+   console.log(response.data.results[0].formatted_address);
+   return axios.get(weatherUrl);
+}).then((response) => {
+   var temperature = response.data.currently.temperature;
+   var apparentTemperature = response.data.currently.apparentTemperature;
+   console.log(`It's currently ${temperature}.  It feels like ${apparentTemperature}.`);
 }).catch((e) => {
   if (e.code === 'ENOTFOUND') {
     console.log('Unable to connect to API servers.');
